@@ -161,6 +161,59 @@ Alegem \( j = 2 \):
 \( \frac{\partial}{\partial w_2} l(w) = \frac{\partial}{\partial x_2} \ln \sigma (w_0 + w_2) 
 + \frac{\partial}{\partial x_2} 4 \ln (1 - \sigma (w_0 + w_2 + w_3)) + \frac{\partial}{\partial x_2} 140 \ln \sigma (w_0 + w_2 + w_3) 
 + \frac{\partial}{\partial x_2} 17 \ln (1 - \sigma (w_0 + w_1 + w_2)) + \frac{\partial}{\partial x_2} 27 \ln \sigma (w_0 + w_1 + w_2) 
-+ \frac{\partial}{\partial x_2} 105 \ln (1 - \sigma (w_0 + w_1 + w_2 + w_3)) + \frac{\partial}{\partial x_2} 176 \ln \sigma (w_0 + w_1 + w_2 + w_3) \)
++ \frac{\partial}{\partial x_2} 105 \ln (1 - \sigma (w_0 + w_1 + w_2 + w_3)) + \frac{\partial}{\partial x_2} 176 \ln \sigma (w_0 + w_1 + w_2 + w_3) 
+= 344 - \sigma (w_0 + w_2) - 144 \sigma (w_0 + w_2 + w_3) - 44 \sigma (w_0 + w_1 + w_2) -281 \sigma (w_0 + w_1 + w_2 + w_3) \)
+
+Se poate ușor observa că rezultatul coincide cu poziția 2 din vectorul gradient calculat la \textbf{i}.
+
+\noindent \textbf{c}.
+
+\( w = 0 \in \mathbb{R}^4 \), deci \( w_i = 0, i \in \{0, 1, 2, 3\} \)
+
+\( \sigma (z) = \frac{1}{1 + e^{-z}} \implies \sigma (0) = \frac{1}{1 + e^0} = 0.5 \)
+
+\( \nabla_w l(w) = (711 - 5 \cdot 0.5 - 175 \cdot 0.5 - 0.5 - 144 \cdot 0.5 - 59 \cdot 0.5 - 1492 \cdot 0.5 - 44 \cdot 0.5 - 281 \cdot 0.5, 
+508 - 59 \cdot 0.5 - 1492 \cdot 0.5 - 44 \cdot 0.5 -281 \cdot 0.5,
+344 -0.5 - 144 \cdot 0.5 - 44 \cdot 0.5 - 281 \cdot 0.5,
+654 - 175 \cdot 0.5 - 144 \cdot 0.5 - 1492 \cdot 0.5 - 281 \cdot 0.5 )^T 
+= (-389.5, -430, 109, -392)^T \)
+
+Aplicam rata de învățare: \( learningRate = 0.1 \)
+
+\( 0.1 \cdot (-389.5, -430, 109, -392)^T = (-38.95, -43, 10.9, -39.2)^T \)
+
+\noindent \textbf{d}.
+
+Valorile optime pentru weight-uri sunt următoarele:
+
+\( w = (0.3614, -1.1881, 2.1105, -0.6651) \)
+
+Vom clasifica următoarele instanțe:
+
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Nume & \( X_1 \) & \( X_2 \) & \( X_3 \) & \( Y \) \\ \hline
+    U & \( 0 \) & \( 1 \) & \( 1 \) & \( ? \) \\ \hline
+    V & \( 1 \) & \( 1 \) & \( 0 \) & \( ? \) \\ \hline
+    W & \( 1 \) & \( 0 \) & \( 1 \) & \( ? \) \\ \hline
+\end{tabular}
+
+Clasificăm instața U:
+
+\( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
+= 0.3614 + 0 \cdot -1.1881 + 1 \cdot 2.1105 + 1 \cdot -0.6651 
+= 1.8068 > 0 \implies Y_U^{prediction} = 1 \)
+
+Clasificăm instața V:
+
+\( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
+= 0.3614 + 1 \cdot -1.1881 + 1 \cdot 2.1105 + 0 \cdot -0.6651 
+= 1.2830 > 0 \implies Y_V^{prediction} = 1 \)
+
+Clasificăm instața W:
+
+\( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
+= 0.3614 + 1 \cdot -1.1881 + 0 \cdot 2.1105 + 1 \cdot -0.6651 
+= -1.4918 < 0 \implies Y_W^{prediction} = 0 \)
 
 \end{document}
