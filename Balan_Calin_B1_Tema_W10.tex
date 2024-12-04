@@ -198,22 +198,102 @@ Vom clasifica următoarele instanțe:
     W & \( 1 \) & \( 0 \) & \( 1 \) & \( ? \) \\ \hline
 \end{tabular}
 
-Clasificăm instața U:
+Clasificăm instanța U:
 
 \( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
 = 0.3614 + 0 \cdot -1.1881 + 1 \cdot 2.1105 + 1 \cdot -0.6651 
 = 1.8068 > 0 \implies Y_U^{prediction} = 1 \)
 
-Clasificăm instața V:
+Clasificăm instanța V:
 
 \( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
 = 0.3614 + 1 \cdot -1.1881 + 1 \cdot 2.1105 + 0 \cdot -0.6651 
 = 1.2830 > 0 \implies Y_V^{prediction} = 1 \)
 
-Clasificăm instața W:
+Clasificăm instanța W:
 
 \( w_0 + w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 
 = 0.3614 + 1 \cdot -1.1881 + 0 \cdot 2.1105 + 1 \cdot -0.6651 
 = -1.4918 < 0 \implies Y_W^{prediction} = 0 \)
+
+\noindent \textbf{e}.
+
+\textbf{i}.
+
+\( H_w = - \sum_{i=1}^{n} h(x^{(i)}) (1 - h(x^{(i)})) x^{(i)} (x^{(i)})^T  \)
+
+\( H_w = - \{ 5 \cdot \sigma (w_0) (1 - \sigma (w_0)) (1, 0, 0, 0)^T (1, 0, 0, 0) \\
++ 175 \cdot \sigma (w_0 + w_3) (1 - \sigma (w_0 + w_3)) (1, 0, 0, 1)^T (1, 0, 0, 1) \\
++ \sigma (w_0 + w_2) (1 - \sigma (w_0 + w_2)) (1, 0, 1, 0)^T (1, 0, 1, 0) \\
++ 144 \cdot \sigma (w_0 + w_2 + w_3) (1 - \sigma (w_0 + w_2 + w_3)) (1, 0, 1, 1)^T (1, 0, 1, 1) \\
++ 59 \cdot \sigma (w_0 + w_1) (1 - \sigma (w_0 + w_1)) (1, 1, 0, 0)^T Z(1, 1, 0, 0) \\
++ 1492 \cdot \sigma (w_0 + w_1 + w_3) (1 - \sigma (w_0 + w_1 + w_3)) (1, 1, 0, 1)^T (1, 1, 0, 1) \\
++ 44 \cdot \sigma (w_0 + w_1 + w_2) (1 - \sigma (w_0 + w_1 + w_2)) (1, 1, 1, 0)^T (1, 1, 1, 0) \\
++ 281 \cdot \sigma (w_0 + w_1 + w_2 + w_3) (1 - \sigma (w_0 + w_1 + w_2 + w_3)) (1, 1, 1, 1)^T (1, 1, 1, 1) \} \)
+
+\textbf{ii}.
+
+Alegem \( j = 2 \) și \( k = 1 \):
+
+\( H_w (1, 2) = \frac{\partial^2}{\partial w_1 \partial w_2} l (w) 
+= \frac{\partial}{\partial w_1} (\frac{\partial}{\partial w_2} l (w)) 
+= \frac{\partial}{\partial w_1} ( 344 - \sigma (w_0 + w_2) - 144 \sigma (w_0 + w_2 + w_3) - 44 \sigma (w_0 + w_1 + w_2) - 281 \sigma (w_0 + w_1 + w_2 + w3) ) 
+= -44 \sigma (w_0 + w_1 + w_2) \cdot (1 - \sigma (w_0 + w_1 + w_2)) - 281 \sigma (w_0 + w_1 + w_2 + w_3) \cdot (1 - \sigma (w_0 + w_1 + w_2 + w_3)) \)
+
+Se poate vedea că rezultatul obținut coincide cu cel de pe linia și coloana corespunzătoare din hessiană.
+
+\textbf{iii}.
+
+Vom calcula \( H(2, 1) \) și verifica egalitatea cu \( H(1, 2) \).
+
+\( H(2, 1) = \frac{\partial^2}{\partial w_2 \partial w_1} l(w) = \frac{\partial}{\partial w_2} (\frac{\partial}{\partial w_1} l(w)) 
+= \frac{\partial}{\partial w_2} ( 35 \ln (1 - \sigma (w_0 + w_1)) + 24 \ln \sigma (w_0 + w_1) + 1211 \ln (1 - \sigma (w_0 + w_1 + w_3)) 
++ 281 \ln \sigma (w_0 + w_1 + w_3) + 17 \ln (1 - \sigma (w_0 + w_1 + w_2)) + 27 \ln \sigma (w_0 + w_1 + w_2) 
++ 105 \ln (1 - \sigma (w_0 + w_1 + w_2 + w_3)) + 176 \ln \sigma (w_0 + w_1 + w_2 + w_3) ) 
+= \frac{\partial}{\partial w_2} (508 - 59 \sigma (w_0 + w_1) - 1492 \sigma (w_0 + w_1 + w_3) - 44 \sigma (w_0 + w_1 + w_2) - 281 \sigma (w_0 + w_1 + w_2 + w_3)) 
+= -44 \sigma (w_0 + w_1 + w_2) (1 - \sigma (w_0 + w_1 + w_2)) - 281 \sigma (w_0 + w_1 + w_2 + w_3) (1 - \sigma (w_0 + w_1 + w_2 + w_3)) \)
+
+Asadar, egalitatea cerută se respectă.
+
+\noindent \textbf{f}.
+
+Valorile optime obținute pentru \( w \) sunt următoarele:
+
+\( w = (0.5231, -1.1903, 2.1018, -0.6594) \)
+
+Modelul astfel obținut va clasifica identic instanțele de test, întrucât weight-urile converg către aceleași puncte.
+
+Metoda gradientului necesita un număr de iterații semnificativ mai mare decât Newton-Raphson, întrucât cel din urma converge cu rată de ordin pătratic.
+În schimb, timpul de execuție este mult mai mic in cazul metodei gradientului, deoarece Newton-Raphson necesită calcularea matricii hessiene.
+
+\noindent \textbf{g}.
+
+\( J(w) = \frac{1}{n} \sum_{i=1}^{n} \ln (1 + exp(-y^{'(i)} \cdot w \cdot x^{(i)})) 
+= \frac{1}{2201} (5 \ln (1 + exp(-w_0)) + 118 \ln (1 + exp(w_0 + w_3)) + 57 \ln (1 + exp(-w_0 - w_3)) + \ln (1 + exp(-w_0 - w_2)) 
++ 4 \ln (1 + exp(w_0 + w_2 + w_3)) + 140 \ln (1+ exp(-w_0 - w_2 - w_3)) + 35 \ln (1 + exp (w_0 + w_1)) + 24 \ln (1 + exp(-w_0 - w_1)) 
++ 1211 \ln (1 + exp(w_0 + w_1 + w_3)) + 281 \ln (1 + exp(-w_0 - w_1 - w_2)) + 
+105 \ln (1 + exp(w_0 + w_1 + w_2 + w_3)) + 176 \ln (1 + exp(-w_0 - w_1 - w_2 - w_3))) \)
+
+Știm că \( 1 - \sigma (z) = \sigma (-z) \), unde \( z = w \cdot x \).
+
+\( \sum_{i=1}^{n} \ln (1 + exp(-y^{(i)} \cdot w \cdot x^{(i)})) = \ln \prod_{i=1}^{n} (1 + exp(-y^{(i)} \cdot w \cdot x^{(i)})) \)
+
+\( 1 + exp(-y^{(i)} \cdot w \cdot x^{(i)}) = \begin{cases}
+1 + e^{-w \cdot x^{(i)}} = (\frac{1}{1 + e^{-w \cdot x^{(i)}}})^{-1} = (\sigma (w \cdot x^{(i)}))^{(-1)y^{'(i)}}, & \text{dacă } y^{'(i)} = 1, \\
+1 + e^{w \cdot x^{(i)}} = (\frac{1}{1 + e^{w \cdot x^{(i)}}})^{-1} = (\sigma (-w \cdot x^{(i)}))^{(-1)y^{'(i)}}, & \text{dacă } y^{'(i)} = 0.
+\end{cases} \)
+
+Deci, pentru fiecare \( y^{(i)} \):
+
+\( \ln (1 + exp(-y^{(i)} \cdot w \cdot x^{(i)})) = \begin{cases}
+-\ln \sigma (w \cdot x^{(i)}), & \text{dacă } y^{(i)} = 1, \\
+-\ln (1 - \sigma (w \cdot x^{(i)})), & \text{dacă } y^{(i)} = 0.
+\end{cases} \)
+
+Astfel, putem rescrie formula lui \( J(w) \), utilizând proprietățile logaritmului și definiția precendentă:
+
+\( \ln \prod_{i=1}^{n} (\sigma (w \cdot x^{(i)}))^{-y^{(i)}} \cdot (1 - \sigma (w \cdot x^{(i)}))^{-(1-y^{(i)})} = -\sum_{i=1}^{n} (y^{(i)} \ln \sigma (w \cdot x^{(i)}) + (1 - y^{(i)}) \ln (1 - \sigma (w \cdot x^{(i)}))) \)
+
+De unde reiese relația \( J(w) = -\frac{1}{n} l(w) \).
 
 \end{document}
